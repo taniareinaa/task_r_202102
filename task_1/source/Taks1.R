@@ -24,7 +24,13 @@ pares=Vector_incial[!Vector_incial %in% impares]
 # Punto 2 #
 #=========#
 cultivos=import("task_1/data/input/cultivos.xlsx")
-
+colnames(cultivos) = cultivos[4,] %>% tolower()
+cultivos$codmpio = as.numeric(cultivos$codmpio)
+cultivos = cultivos %>% drop_na(codmpio)
+years = 1999:2019 %>% as.character()
+for(var in years)
+  cultivos[,var] = as.numeric(cultivos[,var])
+pivot = cultivos %>% pivot_longer(!coddepto:municipio,names_to="year",values_to="ha_cultivos")
 #=========#
 # Punto 3 #
 #=========#
