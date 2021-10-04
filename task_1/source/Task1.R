@@ -39,3 +39,12 @@ cultivos_pivot = cultivos %>% pivot_longer(!CODDEPTO:MUNICIPIO,names_to="ANUAL",
 #=========#
 # Punto 3 #
 #=========#
+personas=import("task_1/data/input/2019/Cabecera - Caracteristicas generales (Personas).rds")
+ocupados=import("task_1/data/input/2019/Cabecera - Ocupados.rds")  %>% mutate(ocupado=1)
+desocupados=import("task_1/data/input/2019/Cabecera - Desocupados.rds")  %>% mutate(desocupado=2)
+inactivos=import("task_1/data/input/2019/Cabecera - Inactivos.rds")  %>% mutate(inactivo=3)
+f_trabajo=import("task_1/data/input/2019/Cabecera - Fuerza de trabajo.rds")  %>% mutate(fuerza=4)
+unificada=left_join(personas,ocupados,c("secuencia_p","orden","directorio"))
+unificada=left_join(unificada,desocupados,c("secuencia_p","orden","directorio"))
+unificada=left_join(unificada,inactivos,c("secuencia_p","orden","directorio"))
+unificada=left_join(unificada,f_trabajo,c("secuencia_p","orden","directorio"))
